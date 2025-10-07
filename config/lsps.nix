@@ -30,6 +30,7 @@
 				lua_ls.enable = true;
 				pyright.enable = true;
 				dockerls.enable = true;
+				omnisharp.enable = true;
 			};
 		};
     };
