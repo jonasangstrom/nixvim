@@ -33,7 +33,6 @@
 				dockerls.enable = true;
 				omnisharp = {
 					enable = true;
-					autostart = true;
 					package = pkgs.omnisharp-roslyn;
 				};
 			};

@@ -46,14 +46,18 @@
       nvim
       pkgs.ripgrep
 	  pkgs.dotnet-sdk
-	  pkgs.dotnet-sdk
 	  pkgs.omnisharp-roslyn
+      pkgs.dotnet-sdk_9
 	  pkgs.fd
+	  pkgs.libunwind
     ];
     buildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
       wrapProgram $out/bin/nvim \
-        --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.ripgrep ]}
+        --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.ripgrep ]} \
+        --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.fd ]} \
+        --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.dotnet-sdk_9 ]} \
+        --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.omnisharp-roslyn ]} 
     '';
   };
           };
