@@ -24,7 +24,7 @@
           nixvim' = nixvim.legacyPackages.${system};
           nixvimModule = {
             inherit system; # or alternatively, set `pkgs`
-            module = import ./config; # import the module directly
+            module = import ./config { inherit pkgs; }; # import the module directly
             # You can use `extraSpecialArgs` to pass additional arguments to your module files
             extraSpecialArgs = {
               # inherit (inputs) foo;
@@ -45,6 +45,10 @@
     paths = [
       nvim
       pkgs.ripgrep
+	  pkgs.dotnet-sdk
+	  pkgs.dotnet-sdk
+	  pkgs.omnisharp-roslyn
+	  pkgs.fd
     ];
     buildInputs = [ pkgs.makeWrapper ];
     postBuild = ''

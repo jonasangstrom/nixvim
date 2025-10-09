@@ -1,3 +1,4 @@
+{ pkgs }:
 {
     plugins = {
 		lsp-format = {
@@ -30,7 +31,11 @@
 				lua_ls.enable = true;
 				pyright.enable = true;
 				dockerls.enable = true;
-				omnisharp.enable = true;
+				omnisharp = {
+					enable = true;
+					autostart = true;
+					package = pkgs.omnisharp-roslyn;
+				};
 			};
 		};
     };

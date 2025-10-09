@@ -1,3 +1,4 @@
+{ pkgs }:
 {
     # Import all your configuration modules here
     globals = {
@@ -7,7 +8,7 @@
     colorschemes.catppuccin.enable = true;
     imports = [
 	./options.nix
-	./lsps.nix
+	(import ./lsps.nix {inherit pkgs;})
 	./plugins.nix
     ];
 }
