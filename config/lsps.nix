@@ -35,6 +35,7 @@
 					enable = true;
 					package = pkgs.omnisharp-roslyn;
 				};
+				ts_ls.enable = true;
 			};
 		};
     };
