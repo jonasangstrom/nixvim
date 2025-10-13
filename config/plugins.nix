@@ -6,5 +6,6 @@
 	./oil.nix
 	./fugitive.nix
 	./treesitter.nix
+	./cmp.nix
     ];
 }
