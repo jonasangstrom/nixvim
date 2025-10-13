@@ -1,6 +1,9 @@
 {
     plugins.lualine.enable = true;
     plugins.web-devicons.enable = true;
+    plugins.which-key.enable = true;
+    plugins.trouble.enable = true;
+    plugins.gitsigns.enable = true;
     imports = [
 	./telescope.nix
 	./oil.nix
