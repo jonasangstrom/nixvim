@@ -35,7 +35,27 @@
 					enable = true;
 					package = pkgs.omnisharp-roslyn;
 				};
-				ts_ls.enable = true;
+				ts_ls = {
+                    enable = true;
+                    settings = {
+                        typescript = {
+                            format = {
+                                indentSize = 2;
+                                tabSize = 2;
+                                convertTabsToSpaces = true;
+                            };
+                        };
+                    };
+                    settings = {
+                        javascript = {
+                            format = {
+                                indentSize = 2;
+                                tabSize = 2;
+                                convertTabsToSpaces = true;
+                            };
+                        };
+                    };
+                };
 			};
 		};
     };
