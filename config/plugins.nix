@@ -7,5 +7,6 @@
 	./fugitive.nix
 	./treesitter.nix
 	./cmp.nix
+    ./luasnip.nix
     ];
 }

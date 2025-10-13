@@ -8,6 +8,10 @@
                 { name = "path";}
                 { name = "luasnip";}
             ];
+            mapping = {
+                "N" = "cmp.mapping.select_next_item()";
+                "<C-n>" = "cmp.mapping.select_prev_item()";
+            };
         };
     };
 }
