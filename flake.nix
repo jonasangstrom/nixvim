@@ -45,7 +45,6 @@
     paths = [
       nvim
       pkgs.ripgrep
-	  pkgs.dotnet-sdk
 	  pkgs.omnisharp-roslyn
       pkgs.dotnet-sdk_9
 	  pkgs.fd
