@@ -41,7 +41,7 @@
                 packages = {
                     # Lets you run `nix run .` to start nixvim
                     default = pkgs.stdenv.mkDerivation {
-                        name = "nvim-wrapper";
+                        name = "nvim";
                         src = null;
                         phases = [ "installPhase" ];
                         buildInputs = [ pkgs.makeWrapper ];
