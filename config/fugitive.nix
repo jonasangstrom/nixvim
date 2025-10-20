@@ -3,7 +3,7 @@
     keymaps = [
 	{
 	    key =  "<leader>g";
-	    action = ":Git<CR>";
+	    action = "<cmd>Git<cr>";
 	    options.silent = true;
 	}
     ];
