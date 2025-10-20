@@ -1,24 +1,22 @@
 {
     plugins = {
-	treesitter = {
-	  enable = true;
+	    treesitter = {
+	        enable = true;
+	        nixvimInjections = true;
+	            settings = {
+	                highlight.enable = true;
+	                indent.enable = true;
+	            };
+	    };
 
-	  nixvimInjections = true;
-
-	  settings = {
-	    highlight.enable = true;
-	    indent.enable = true;
-	  };
-	};
-
-	treesitter-refactor = {
-	  enable = true;
-	  highlightDefinitions = {
-	    enable = true;
-	    # Set to false if you have an `updatetime` of ~100.
-	    # clearOnCursorMove = false;
-	  };
-	};
+	    treesitter-refactor = {
+	        enable = true;
+            settings = {
+	            highlight_definitions = {
+	                enable = true;
+	            };
+	        };
+        };
 
     hmts.enable = true;
     };
