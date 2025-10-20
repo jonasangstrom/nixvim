@@ -1,0 +1,7 @@
+{
+    plugins = {
+        trouble = {
+            enable = true;
+        };
+	};
+}
