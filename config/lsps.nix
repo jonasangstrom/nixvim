@@ -31,10 +31,11 @@
 				lua_ls.enable = true;
 				pyright.enable = true;
 				dockerls.enable = true;
-				omnisharp = {
-					enable = true;
-					package = pkgs.omnisharp-roslyn;
-				};
+                roslyn_ls.enable = true;
+                #omnisharp = {
+                #	enable = true;
+				#   package = pkgs.omnisharp-roslyn;
+                #};
 				ts_ls = {
                     enable = true;
                     settings = {
