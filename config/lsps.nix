@@ -1,4 +1,3 @@
-{ pkgs }:
 {
     plugins = {
 		lsp-format = {
@@ -30,6 +29,9 @@
 				};
 				lua_ls.enable = true;
 				pyright.enable = true;
+
+                tombi.enable = true;
+                yamlls.enable = true;
 				dockerls.enable = true;
                 roslyn_ls.enable = true;
                 #omnisharp = {
