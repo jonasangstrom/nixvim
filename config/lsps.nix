@@ -34,6 +34,11 @@
                 yamlls.enable = true;
 				dockerls.enable = true;
                 roslyn_ls.enable = true;
+                rust_analyzer = {
+                    enable = true;
+                    installCargo = true;
+                    installRustc = true;
+                };
                 #omnisharp = {
                 #	enable = true;
 				#   package = pkgs.omnisharp-roslyn;
