@@ -4,6 +4,10 @@
 			enable = true;
 			lspServersToEnable = "all";
 		};
+        none-ls = {
+            enable = true;
+            sources.formatting.black.enable = true;
+        };
 		lsp = {
 			enable = true;
 			inlayHints = true;
@@ -29,7 +33,6 @@
 				};
 				lua_ls.enable = true;
 				pyright.enable = true;
-
                 tombi.enable = true;
                 yamlls.enable = true;
 				dockerls.enable = true;
@@ -39,10 +42,6 @@
                     installCargo = true;
                     installRustc = true;
                 };
-                #omnisharp = {
-                #	enable = true;
-				#   package = pkgs.omnisharp-roslyn;
-                #};
 				ts_ls = {
                     enable = true;
                     settings = {
