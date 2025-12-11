@@ -6,7 +6,10 @@
 		};
         none-ls = {
             enable = true;
-            sources.formatting.black.enable = true;
+            sources.formatting = {
+                black.enable = true;
+                nixfmt.enable = true;
+            };
         };
 		lsp = {
 			enable = true;
