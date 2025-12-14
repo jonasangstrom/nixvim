@@ -42,6 +42,7 @@
           enable = true;
           installCargo = true;
           installRustc = true;
+          installRustfmt = true;
         };
         ts_ls = {
           enable = true;
