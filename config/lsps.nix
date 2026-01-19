@@ -6,9 +6,12 @@
     };
     none-ls = {
       enable = true;
-      sources.formatting = {
-        black.enable = true;
-        nixfmt.enable = true;
+      sources = {
+        formatting = {
+          black.enable = true;
+          nixfmt.enable = true;
+        };
+        diagnostics.pylint.enable = true;
       };
     };
     lsp = {
