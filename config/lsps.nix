@@ -36,6 +36,15 @@
           settings = { expr = "import <nixpkgs> {}"; };
         };
         lua_ls.enable = true;
+        # python
+        ruff = {
+          enable = true;
+          onAttach.function = ''
+            if client.name == 'ruff' then
+              client.server_capabilities.hoverProvider = false
+            end
+          '';
+        };
         pyright.enable = true;
         tombi.enable = true;
         yamlls.enable = true;
