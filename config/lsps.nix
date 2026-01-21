@@ -11,7 +11,6 @@
           black.enable = true;
           nixfmt.enable = true;
         };
-        diagnostics.pylint.enable = true;
       };
     };
     lsp = {
