@@ -32,7 +32,9 @@
       servers = {
         nixd = {
           enable = true;
-          settings = { expr = "import <nixpkgs> {}"; };
+          settings = {
+            expr = "import <nixpkgs> {}";
+          };
         };
         lua_ls.enable = true;
         # python
