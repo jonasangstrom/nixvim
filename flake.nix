@@ -47,6 +47,7 @@
                   pkgs.lib.makeBinPath [
                     pkgs.ripgrep
                     pkgs.fd
+                    pkgs.dotnet-sdk_9
                     pkgs.dotnet-sdk_10
                     pkgs.omnisharp-roslyn
                   ]
