@@ -12,5 +12,6 @@
     ./cmp.nix
     ./luasnip.nix
     ./trouble.nix
+    ./dap.nix
   ];
 }
