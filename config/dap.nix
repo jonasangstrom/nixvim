@@ -17,6 +17,22 @@
           ];
         };
       };
+
+      # needed for python
+      adapters.executables.python = {
+        command = "${pkgs.python314}/bin/python";
+        args = [
+          "-m"
+          "debugpy.adapter"
+        ];
+      };
+
+      # needed for c#
+      adapters.executables.coreclr = {
+        command = "${pkgs.netcoredbg}/bin/netcoredbg";
+        args = [ "--interpreter=vscode" ];
+      };
+
       configurations.rust = [
         {
           name = "Rust Debug";
@@ -25,6 +41,30 @@
           program = "\${workspaceFolder}/target/debug/\${packageName}";
           cwd = "\${workspaceFolder}";
           stopOnEntry = false;
+        }
+      ];
+
+      configurations.cs = [
+        {
+          name = "dotnet launch - netcoredbg";
+          type = "coreclr";
+          request = "launch";
+          program = {
+            __raw = ''
+              function()
+                return vim.fn.input('Path to dll: ', vim.fn.getcwd() .. '/bin/Debug/net10.0/', 'file')
+              end
+            '';
+          };
+        }
+      ];
+      configurations.python = [
+        {
+          type = "python";
+          request = "launch";
+          name = "Launch file";
+          program = "\${file}";
+          pythonPath = "\${command:python.interpreterPath}";
         }
       ];
     };
@@ -48,5 +88,9 @@
       action.__raw = "function() require('dapui').toggle() end";
       options.desc = "(s)ebug (d)apui";
     }
+  ];
+  # python needs python installed
+  extraPackages = with pkgs; [
+    (python314.withPackages (ps: with ps; [ debugpy ]))
   ];
 }
