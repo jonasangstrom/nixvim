@@ -1,4 +1,9 @@
 {
+  globals = {
+    mapleader = " ";
+    maplocalleader = " ";
+  };
+  colorschemes.catppuccin.enable = true;
   opts = {
     shiftwidth = 4;
     tabstop = 4;

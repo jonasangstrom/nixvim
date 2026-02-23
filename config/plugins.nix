@@ -5,6 +5,7 @@
   plugins.which-key.enable = true;
   plugins.gitsigns.enable = true;
   imports = [
+    ./lsps.nix
     ./telescope.nix
     ./undotree.nix
     ./oil.nix
