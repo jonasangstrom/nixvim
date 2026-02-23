@@ -20,7 +20,7 @@
 
       # needed for python
       adapters.executables.python = {
-        command = "${pkgs.python314}/bin/python";
+        command = "python";
         args = [
           "-m"
           "debugpy.adapter"
@@ -58,13 +58,19 @@
           };
         }
       ];
+
       configurations.python = [
         {
           type = "python";
           request = "launch";
-          name = "Launch file";
+          name = "Launch with Arguments";
           program = "\${file}";
-          pythonPath = "\${command:python.interpreterPath}";
+          args.__raw = ''
+            function()
+              local args_string = vim.fn.input('Arguments: ')
+              return vim.split(args_string, " +") 
+            end
+          '';
         }
       ];
     };
@@ -88,9 +94,5 @@
       action.__raw = "function() require('dapui').toggle() end";
       options.desc = "(s)ebug (d)apui";
     }
-  ];
-  # python needs python installed
-  extraPackages = with pkgs; [
-    (python314.withPackages (ps: with ps; [ debugpy ]))
   ];
 }
