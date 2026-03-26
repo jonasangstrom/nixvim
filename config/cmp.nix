@@ -7,6 +7,7 @@
         { name = "buffer"; }
         { name = "path"; }
         { name = "luasnip"; }
+        { name = "vim-dadbod-completion"; }
       ];
       mapping = {
         "<C-n>" = "cmp.mapping.select_next_item()";
