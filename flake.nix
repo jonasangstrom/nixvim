@@ -55,6 +55,7 @@
                     pkgs.fd
                     pkgs.dotnet-sdk_10
                     pkgs.omnisharp-roslyn
+                    pkgs.sqlite
                   ]
                 }
               '';
