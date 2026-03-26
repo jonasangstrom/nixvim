@@ -15,5 +15,6 @@
     ./luasnip.nix
     ./trouble.nix
     ./dap.nix
+    ./dadbod.nix
   ];
 }
