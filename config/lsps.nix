@@ -36,6 +36,7 @@
             expr = "import <nixpkgs> {}";
           };
         };
+        ols.enable = true;
         lua_ls.enable = true;
         # python
         ruff = {
