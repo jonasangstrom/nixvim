@@ -35,7 +35,17 @@
       };
       hints.enabled = true;
     };
-  };
+        };
+
+  extraConfigLua = ''
+    local copilot_instructions_path = vim.fn.expand("~/.github/copilot-instructions.md")
+    local f = io.open(copilot_instructions_path, "r")
+    if f then
+      local content = f:read("*a")
+      f:close()
+      require("avante.config").override({ system_prompt = content })
+    end
+        '';
 
   keymaps = [
     {
