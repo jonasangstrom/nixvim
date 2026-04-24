@@ -38,29 +38,6 @@
           };
           nvimHome = nixvim'.makeNixvimWithModule homeModule;
           nvimWork = nixvim'.makeNixvimWithModule workModule;
-          mkPackage =
-            nvim: extraPaths:
-            pkgs.stdenv.mkDerivation {
-              name = "nvim";
-              src = null;
-              phases = [ "installPhase" ];
-              buildInputs = [ pkgs.makeWrapper ];
-              installPhase = ''
-                mkdir -p $out/bin
-                ln -s ${nvim}/bin/nvim $out/bin/nvim
-                wrapProgram $out/bin/nvim \
-                  --prefix PATH : ${
-                    pkgs.lib.makeBinPath (
-                      [
-                        pkgs.ripgrep
-                        pkgs.fd
-                        pkgs.sqlite
-                      ]
-                      ++ extraPaths
-                    )
-                  }
-              '';
-            };
         in
         {
           checks = {
@@ -69,11 +46,8 @@
           };
 
           packages = {
-            default = mkPackage nvimHome [ ];
-            work = mkPackage nvimWork [
-              pkgs.dotnet-sdk_10
-              pkgs.omnisharp-roslyn
-            ];
+            default = nvimHome;
+            work = nvimWork;
           };
         };
     };
