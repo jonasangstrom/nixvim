@@ -27,7 +27,7 @@
     settings = {
       provider = "copilot";
       providers.copilot = {
-        model = "claude-sonnet-4-6";
+        model = "claude-sonnet-4.6";
       };
       behaviour = {
         auto_suggestions = false;
