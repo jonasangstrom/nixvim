@@ -22,25 +22,25 @@
         let
           nixvimLib = nixvim.lib.${system};
           nixvim' = nixvim.legacyPackages.${system};
-          nixvimModule = {
-            inherit system; # or alternatively, set `pkgs`
-            module = ./config; # import the module directly
-            # You can use `extraSpecialArgs` to pass additional arguments to your module files
+          homeModule = {
+            inherit system;
+            module = ./config;
             extraSpecialArgs = {
               inherit inputs;
             };
           };
-          nvim = nixvim'.makeNixvimWithModule nixvimModule;
-        in
-        {
-          checks = {
-            # Run `nix flake check .` to verify that your config is not broken
-            default = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
+          workModule = {
+            inherit system;
+            module = ./config/work.nix;
+            extraSpecialArgs = {
+              inherit inputs;
+            };
           };
-
-          packages = {
-            # Lets you run `nix run .` to start nixvim
-            default = pkgs.stdenv.mkDerivation {
+          nvimHome = nixvim'.makeNixvimWithModule homeModule;
+          nvimWork = nixvim'.makeNixvimWithModule workModule;
+          mkPackage =
+            nvim: extraPaths:
+            pkgs.stdenv.mkDerivation {
               name = "nvim";
               src = null;
               phases = [ "installPhase" ];
@@ -49,17 +49,31 @@
                 mkdir -p $out/bin
                 ln -s ${nvim}/bin/nvim $out/bin/nvim
                 wrapProgram $out/bin/nvim \
-                --prefix PATH : ${
-                  pkgs.lib.makeBinPath [
-                    pkgs.ripgrep
-                    pkgs.fd
-                    pkgs.dotnet-sdk_10
-                    pkgs.omnisharp-roslyn
-                    pkgs.sqlite
-                  ]
-                }
+                  --prefix PATH : ${
+                    pkgs.lib.makeBinPath (
+                      [
+                        pkgs.ripgrep
+                        pkgs.fd
+                        pkgs.sqlite
+                      ]
+                      ++ extraPaths
+                    )
+                  }
               '';
             };
+        in
+        {
+          checks = {
+            default = nixvimLib.check.mkTestDerivationFromNixvimModule homeModule;
+            work = nixvimLib.check.mkTestDerivationFromNixvimModule workModule;
+          };
+
+          packages = {
+            default = mkPackage nvimHome [ ];
+            work = mkPackage nvimWork [
+              pkgs.dotnet-sdk_10
+              pkgs.omnisharp-roslyn
+            ];
           };
         };
     };
