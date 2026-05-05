@@ -12,7 +12,10 @@
 
   plugins.copilot-lua = {
     enable = true;
-    settings.suggestion.auto_trigger = true;
+    settings.suggestion = {
+      auto_trigger = true;
+      keymap.accept = "<Tab>";
+    };
   };
 
   plugins.copilot-chat = {
@@ -35,7 +38,7 @@
       };
       hints.enabled = true;
     };
-        };
+  };
 
   extraConfigLua = ''
     local copilot_instructions_path = vim.fn.expand("~/.github/copilot-instructions.md")
@@ -45,7 +48,7 @@
       f:close()
       require("avante.config").override({ system_prompt = content })
     end
-        '';
+  '';
 
   keymaps = [
     {
