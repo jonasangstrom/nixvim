@@ -13,8 +13,9 @@
   plugins.copilot-lua = {
     enable = true;
     settings.suggestion = {
-      auto_trigger = true;
-      keymap.accept = "<Tab>";
+      auto_trigger = false;
+      debounce = 500;
+      keymap.accept = "<C-CR>";
     };
   };
 
