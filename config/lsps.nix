@@ -1,3 +1,4 @@
+{ inputs, ... }:
 {
   plugins = {
     lsp-format = {
@@ -32,9 +33,7 @@
       servers = {
         nixd = {
           enable = true;
-          settings = {
-            expr = "import <nixpkgs> {}";
-          };
+          settings.nixpkgs.expr = "import ${inputs.nixpkgs} {}";
         };
         ols.enable = true;
         lua_ls.enable = true;
@@ -60,21 +59,15 @@
         ts_ls = {
           enable = true;
           settings = {
-            typescript = {
-              format = {
-                indentSize = 2;
-                tabSize = 2;
-                convertTabsToSpaces = true;
-              };
+            typescript.format = {
+              indentSize = 2;
+              tabSize = 2;
+              convertTabsToSpaces = true;
             };
-          };
-          settings = {
-            javascript = {
-              format = {
-                indentSize = 2;
-                tabSize = 2;
-                convertTabsToSpaces = true;
-              };
+            javascript.format = {
+              indentSize = 2;
+              tabSize = 2;
+              convertTabsToSpaces = true;
             };
           };
         };

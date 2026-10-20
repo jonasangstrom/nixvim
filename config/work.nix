@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   imports = [
     ./default.nix
@@ -7,68 +7,74 @@
 
   extraPackages = [
     pkgs.dotnet-sdk_10
-    pkgs.omnisharp-roslyn
   ];
 
   plugins.copilot-lua = {
     enable = true;
-    settings.suggestion = {
-      auto_trigger = false;
-      debounce = 500;
-      keymap.accept = "<C-CR>";
-    };
-  };
-
-  plugins.copilot-chat = {
-    enable = true;
     settings = {
-      window.layout = "vertical";
+      suggestion = {
+        enabled = false;
+      }; # Keep inline suggestions disabled; Copilot is used by the AI plugins.
+      panel = {
+        enabled = false;
+      };
     };
   };
-
-  plugins.avante = {
+  # Enable the native Nixvim module
+  plugins.codecompanion = {
     enable = true;
+
     settings = {
-      provider = "copilot";
-      providers.copilot = {
-        model = "claude-sonnet-4.6";
+      strategies = {
+        chat = {
+          adapter = "copilot"; # Change to "anthropic", "openai", etc. as desired
+          roles = {
+            llm = "CodeCompanion Agent";
+          };
+        };
+        inline = {
+          adapter = "copilot";
+        };
+        agent = {
+          adapter = "copilot";
+        };
       };
-      behaviour = {
-        auto_suggestions = false;
-        auto_apply_diff_after_generation = false;
+
+      # Global options to allow autonomous agent execution
+      opts = {
+        send_code = true;
+        system_prompt = ''
+          You are an autonomous AI programming agent running inside Neovim. 
+          You can actively create, delete, and read files using the system tools provided to you.
+        '';
       };
-      hints.enabled = true;
     };
   };
 
-  extraConfigLua = ''
-    local copilot_instructions_path = vim.fn.expand("~/.github/copilot-instructions.md")
-    local f = io.open(copilot_instructions_path, "r")
-    if f then
-      local content = f:read("*a")
-      f:close()
-      require("avante.config").override({ system_prompt = content })
-    end
-  '';
-
+  # Shortcut Keymaps
   keymaps = [
+    # Toggle the agentic chat buffer instantly
     {
-      mode = "n";
-      key = "<leader>am";
-      action = "<cmd>AvanteModels<cr>";
-      options.silent = true;
+      mode = [ "n" "v" ];
+      key = "<leader>cc";
+      action = "<cmd>CodeCompanionChat Toggle<cr>";
+      options = { desc = "Toggle AI Chat"; silent = true; };
     }
+    
+    # ONE-CLICK MODEL/ADAPTER SELECTOR: Open the actions menu to instantly switch models
     {
-      mode = "n";
-      key = "<leader>aa";
-      action = "<cmd>AvanteAsk<cr>";
-      options.silent = true;
+      mode = [ "n" "v" ];
+      key = "<leader>ca";
+      action = "<cmd>CodeCompanionActions<cr>";
+      options = { desc = "AI Actions / Select Model"; silent = true; };
     }
+
+    # Add visually highlighted code block directly into the ongoing chat context
     {
-      mode = "n";
-      key = "<leader>at";
-      action = "<cmd>AvanteToggle<cr>";
-      options.silent = true;
+      mode = "v";
+      key = "<leader>ce";
+      action = "<cmd>CodeCompanionChat Add<cr>";
+      options = { desc = "Add Selection to AI Chat"; silent = true; };
     }
   ];
 }

@@ -1,4 +1,7 @@
 { pkgs, ... }:
+let
+  debugpyPython = pkgs.python3.withPackages (pythonPackages: [ pythonPackages.debugpy ]);
+in
 {
   plugins = {
     # ui stuff
@@ -20,7 +23,7 @@
 
       # needed for python
       adapters.executables.python = {
-        command = "python";
+        command = "${debugpyPython}/bin/python";
         args = [
           "-m"
           "debugpy.adapter"
@@ -38,7 +41,11 @@
           name = "Rust Debug";
           type = "codelldb";
           request = "launch";
-          program = "\${workspaceFolder}/target/debug/\${packageName}";
+          program.__raw = ''
+            function()
+              return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug/', 'file')
+            end
+          '';
           cwd = "\${workspaceFolder}";
           stopOnEntry = false;
         }
@@ -92,7 +99,7 @@
       mode = "n";
       key = "<leader>dd";
       action.__raw = "function() require('dapui').toggle() end";
-      options.desc = "(s)ebug (d)apui";
+      options.desc = "(d)ebug (d)apui";
     }
   ];
 }
